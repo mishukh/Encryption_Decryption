@@ -1,9 +1,3 @@
-// project_encryption.cpp
-// Complete implementation of Classical Encryption Algorithms
-// This file combines the functionality from:
-// - classical_ciphers.cpp (main program)
-// - cipher_library.h (class definition)
-// - cipher_library.cpp (implementation)
 
 #include <iostream>
 #include <string>
