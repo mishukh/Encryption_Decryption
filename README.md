@@ -1,4 +1,4 @@
-# 🔐 Classical Encryption Algorithms
+#  Classical Encryption Algorithms
 
 A comprehensive C++ implementation of various classical encryption algorithms for educational purposes and text encryption.
 
@@ -13,11 +13,11 @@ A comprehensive C++ implementation of various classical encryption algorithms fo
 - [Mathematical Background](#mathematical-background)
 - [Contributing](#contributing)
 
-## 🎯 Overview
+##  Overview
 
 This project provides a complete library of classical encryption algorithms implemented in C++. It's designed for educational purposes to help understand the fundamentals of cryptography and how various historical ciphers work.
 
-## ✨ Features
+##  Features
 
 - **6 Classical Cipher Implementations**
 - **Interactive Menu System**
@@ -27,7 +27,7 @@ This project provides a complete library of classical encryption algorithms impl
 - **Matrix Operations for Advanced Ciphers**
 - **Brute Force Decryption Options**
 
-## 🔑 Implemented Ciphers
+##  Implemented Ciphers
 
 ### 1. Caesar Cipher (Shift Cipher)
 - **Type**: Substitution cipher
@@ -61,7 +61,7 @@ This project provides a complete library of classical encryption algorithms impl
 - **Key**: Integer for column count
 - **Features**: Rearranges character positions rather than substituting
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -86,7 +86,7 @@ g++ -std=c++11 -o cipher_program main.cpp
 ./cipher_program
 ```
 
-## 💻 Usage
+##  Usage
 
 The program features an interactive menu system:
 
@@ -114,7 +114,7 @@ The program features an interactive menu system:
 - **Keys**: Vary by cipher type (integers, strings, matrices)
 - **Spaces**: Preserved in output where applicable
 
-## 📚 Examples
+##  Examples
 
 ### Caesar Cipher
 ```
@@ -137,7 +137,7 @@ Key: a=5, b=8
 Output: "ihhwvcswbsct"
 ```
 
-## 🧮 Mathematical Background
+##  Mathematical Background
 
 ### Key Mathematical Functions
 
@@ -146,7 +146,7 @@ Output: "ihhwvcswbsct"
 - **Modular Inverse**: Extended Euclidean algorithm
 - **Matrix Operations**: Determinant calculation and matrix inversion for Hill cipher
 
-## 🏗️ Code Structure
+##  Code Structure
 
 ```
 CipherLibrary Class
@@ -168,7 +168,7 @@ CipherLibrary Class
     └── main()
 ```
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Here are some ways you can help:
 
@@ -184,7 +184,7 @@ Contributions are welcome! Here are some ways you can help:
 - Test all encryption/decryption pairs
 - Ensure input validation for all user inputs
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Historical cryptographers who developed these ciphers
 - Educational institutions promoting cryptography education
@@ -192,4 +192,4 @@ Contributions are welcome! Here are some ways you can help:
 
 ---
 
-**⭐ If you found this project helpful, please consider giving it a star!**
+** If you found this project helpful, please consider giving it a star!**
