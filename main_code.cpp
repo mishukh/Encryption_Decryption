@@ -1,3 +1,9 @@
+// project_encryption.cpp
+// Complete implementation of Classical Encryption Algorithms
+// This file combines the functionality from:
+// - classical_ciphers.cpp (main program)
+// - cipher_library.h (class definition)
+// - cipher_library.cpp (implementation)
 
 #include <iostream>
 #include <string>
@@ -38,7 +44,7 @@ long long CipherLibrary::mod(long long a, long long b) {
     if (a >= 0) {
         return a % b;
     } else {
-        return  ((a%b)+b)%b;
+        return ((a%b)+b)%b;
     }
 }
 
@@ -509,151 +515,6 @@ void CipherLibrary::hillCipher() {
     }
 }
 
-// Playfair Cipher implementation
-void CipherLibrary::playfairCipher() {
-    cout << "\n------------ PLAYFAIR CIPHER ------------" << endl;
-    cout << "1. Encrypt" << endl;
-    cout << "2. Decrypt" << endl;
-    cout << "Enter choice: ";
-    
-    int cryptChoice;
-    cin >> cryptChoice;
-    
-    cout << "Enter Message [all lowercase letters]: ";
-    string message;
-    cin.ignore();
-    getline(cin, message);
-    
-    cout << "Enter Key [all lowercase letters]: ";
-    string key;
-    getline(cin, key);
-    
-    // Create the 5x5 Playfair matrix
-    vector<vector<int>> playfairMatrix(5, vector<int>(5));
-    vector<int> letterUsed(26, 0);
-    
-    letterUsed['j' - 'a'] = 1; // J and I are treated the same
-    
-    int keyIndex = 0;
-    int alphabetIndex = 0;
-    
-    // Fill matrix with key first
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
-            if (keyIndex < key.length()) {
-                while (keyIndex < key.length() && letterUsed[key[keyIndex] - 'a'] != 0) {
-                    keyIndex++;
-                }
-                
-                if (keyIndex < key.length()) {
-                    playfairMatrix[i][j] = key[keyIndex];
-                    letterUsed[key[keyIndex] - 'a'] = 1;
-                    keyIndex++;
-                } else {
-                    // Fill with remaining alphabet
-                    while (letterUsed[alphabetIndex] != 0) {
-                        alphabetIndex++;
-                    }
-                    
-                    playfairMatrix[i][j] = 'a' + alphabetIndex;
-                    letterUsed[alphabetIndex] = 1;
-                    alphabetIndex++;
-                }
-            } else {
-                // Fill with remaining alphabet
-                while (letterUsed[alphabetIndex] != 0) {
-                    alphabetIndex++;
-                }
-                
-                playfairMatrix[i][j] = 'a' + alphabetIndex;
-                letterUsed[alphabetIndex] = 1;
-                alphabetIndex++;
-            }
-        }
-    }
-    
-    if (cryptChoice == 1) { // Encryption
-        string result;
-        
-        // Prepare message (separate same letters and handle odd length)
-        for (int i = 0; i < message.length(); i += 2) {
-            if (i + 1 == message.length()) {
-                message.insert(i + 1, "x");
-            }
-            
-            if (message[i] == message[i + 1]) {
-                if (message[i] == 'x') {
-                    message.insert(i + 1, "q");
-                } else {
-                    message.insert(i + 1, "x");
-                }
-                i -= 2; // Re-process this pair
-            }
-        }
-        
-        // Encrypt each pair
-        for (int i = 0; i < message.length(); i += 2) {
-            pair<int, int> pos1, pos2;
-            
-            // Find positions in the matrix
-            for (int row = 0; row < 5; row++) {
-                for (int col = 0; col < 5; col++) {
-                    if (playfairMatrix[row][col] == message[i]) {
-                        pos1 = make_pair(row, col);
-                    } else if (playfairMatrix[row][col] == message[i + 1]) {
-                        pos2 = make_pair(row, col);
-                    }
-                }
-            }
-            
-            // Apply rules
-            if (pos1.first == pos2.first) { // Same row
-                result += playfairMatrix[pos1.first][(pos1.second + 1) % 5];
-                result += playfairMatrix[pos2.first][(pos2.second + 1) % 5];
-            } else if (pos1.second == pos2.second) { // Same column
-                result += playfairMatrix[(pos1.first + 1) % 5][pos1.second];
-                result += playfairMatrix[(pos2.first + 1) % 5][pos2.second];
-            } else { // Rectangle
-                result += playfairMatrix[pos1.first][pos2.second];
-                result += playfairMatrix[pos2.first][pos1.second];
-            }
-        }
-        
-        cout << "\nEncrypted text: " << result << endl;
-    } else if (cryptChoice == 2) { // Decryption
-        string result;
-        
-        // Decrypt each pair
-        for (int i = 0; i < message.length(); i += 2) {
-            pair<int, int> pos1, pos2;
-            
-            // Find positions in the matrix
-            for (int row = 0; row < 5; row++) {
-                for (int col = 0; col < 5; col++) {
-                    if (playfairMatrix[row][col] == message[i]) {
-                        pos1 = make_pair(row, col);
-                    } else if (playfairMatrix[row][col] == message[i + 1]) {
-                        pos2 = make_pair(row, col);
-                    }
-                }
-            }
-            
-            // Apply reverse rules
-            if (pos1.first == pos2.first) { // Same row
-                result += playfairMatrix[pos1.first][(pos1.second + 4) % 5]; // +4 is equivalent to -1 mod 5
-                result += playfairMatrix[pos2.first][(pos2.second + 4) % 5];
-            } else if (pos1.second == pos2.second) { // Same column
-                result += playfairMatrix[(pos1.first + 4) % 5][pos1.second];
-                result += playfairMatrix[(pos2.first + 4) % 5][pos2.second];
-            } else { // Rectangle
-                result += playfairMatrix[pos1.first][pos2.second];
-                result += playfairMatrix[pos2.first][pos1.second];
-            }
-        }
-        
-        cout << "\nDecrypted text: " << result << endl;
-    }
-}
 
 // Transposition Cipher implementation
 void CipherLibrary::transpositionCipher() {
@@ -740,10 +601,9 @@ void displayMenu() {
     cout << "3. Vigenere Cipher" << endl;
     cout << "4. Hill Cipher" << endl;
     cout << "5. Transposition Cipher" << endl;
-    cout << "6. Playfair Cipher" << endl;
-    cout << "7. Exit Program" << endl;
+    cout << "6. Exit Program" << endl;
     cout << "-------------------------------------------------" << endl;
-    cout << "Enter your choice (1-7): ";
+    cout << "Enter your choice (1-6): ";
 }
 
 // Main function
@@ -782,9 +642,6 @@ int main() {
                 cipherLib.transpositionCipher();
                 break;
             case 6:
-                cipherLib.playfairCipher();
-                break;
-            case 7:
                 cout << "\nThank you for using Classical Encryption Algorithms." << endl;
                 return 0;
             default:
