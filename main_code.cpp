@@ -38,7 +38,7 @@ long long CipherLibrary::mod(long long a, long long b) {
     if (a >= 0) {
         return a % b;
     } else {
-        return (-1 * (a / b) + 1) * b + a; 
+        return  ((a%b)+b)%b;
     }
 }
 
