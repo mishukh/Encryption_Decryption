@@ -64,16 +64,31 @@ long long CipherLibrary::inverseModSupport(long long a, long long b, long long x
     }
 }
 
-long long CipherLibrary::inverseMod(long long a, long long b) {
-    long long t = inverseModSupport(a, b);
-    
-    if (mod(a * t, b) == 1) {
-        return t;
-    } else {
-        t = (1 - (b * t)) / a;
-        return t;
+long long CipherLibrary::inverseMod(long long a, long long m) {
+    long long m0 = m;
+    long long x0 = 0, x1 = 1;
+
+    if (gcd(a, m) != 1)
+        return -1; // Inverse doesn't exist
+
+    while (a > 1) {
+        long long q = a / m;
+        long long t = m;
+
+        m = a % m;
+        a = t;
+
+        t = x0;
+        x0 = x1 - q * x0;
+        x1 = t;
     }
+
+    if (x1 < 0)
+        x1 += m0;
+
+    return x1;
 }
+
 
 // Matrix operations for Hill cipher
 long long CipherLibrary::determinant(vector<vector<float>> mat, int order) {
